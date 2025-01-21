@@ -1,0 +1,60 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution {
+    static ArrayList<Integer> nextSmallerElement(ArrayList<Integer> arr, int n) {
+        // Create an array to store the next smaller elements
+        int[] nge = new int[n];
+        Arrays.fill(nge, -1); // Initialize all elements to -1 (default value)
+
+        // Use nested loops to find the next smaller element
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (arr.get(j) < arr.get(i)) {
+                    nge[i] = arr.get(j); // Found the next smaller element
+                    break; // Exit the inner loop
+                }
+            }
+        }
+
+        // Convert the nge array to an ArrayList
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            res.add(nge[i]);
+        }
+
+        return res;
+    }
+}
+tc=o(N^2)
+sc=o(N^2)
+
+
+import java.util.*;
+import java.io.*;
+
+public class Solution{
+    static ArrayList<Integer> nextSmallerElement(ArrayList<Integer> arr, int n){
+        // Write your code here.
+        Stack<Integer>st=new Stack<>();
+        ArrayList<Integer>res=new ArrayList<>();
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && st.peek() >= arr.get(i)){
+                st.pop();
+            }
+            if(st.isEmpty()){
+                res.add(-1);
+            }else{
+                res.add(st.peek());
+            }
+            st.add(arr.get(i));
+        }
+        Collections.reverse(res);
+        return res;
+    }
+}
+tc=o(2n)
+sc=o(n)+o(n)
+
+
+
