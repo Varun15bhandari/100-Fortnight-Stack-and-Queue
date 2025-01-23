@@ -86,3 +86,47 @@ class Solution {
 
 tc=o(2n)
 sc=o(n)
+
+
+
+
+
+
+
+class Solution {
+    public int[] asteroidCollision(int[] arr) {
+            int n = arr.length;
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+            boolean isDestroyed = false; // Track if the current asteroid is destroyed
+            
+            // Handle collisions
+            while (!st.isEmpty() && arr[i] < 0 && st.peek() > 0) {
+                if (st.peek() < Math.abs(arr[i])) {
+                    st.pop(); // The stack's asteroid is destroyed
+                } else if (st.peek() == Math.abs(arr[i])) {
+                    st.pop(); // Both asteroids destroy each other
+                    isDestroyed = true;
+                    break;
+                } else {
+                    isDestroyed = true; // The incoming asteroid is destroyed
+                    break;
+                }
+            }
+
+            // If the current asteroid survives, push it onto the stack
+            if (!isDestroyed) {
+                st.push(arr[i]);
+            }
+        }
+
+        // Convert stack to array
+        int[] ans = new int[st.size()];
+        for (int i = st.size() - 1; i >= 0; i--) {
+            ans[i] = st.pop();
+        }
+
+        return ans;
+    }
+}
